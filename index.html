@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aplikasi Kesra Satu Data</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <section id="login-screen" class="screen active">
+      <div class="login-card">
+        <div class="logo-box">
+          <img class="logo-image" src="logo-pemda.png" alt="Logo Kecamatan Muara Komam" />
+          <div>
+            <h1>Pemerintah Kecamatan Muara Komam</h1>
+            <p>Aplikasi Kesra Satu Data</p>
+          </div>
+        </div>
+        <h2>Masuk</h2>
+        <form id="login-form">
+          <label for="login-username">Username</label>
+          <select id="login-username" required></select>
+          <label for="login-password">Password</label>
+          <input id="login-password" type="password" placeholder="Masukkan password" required />
+          <button type="submit" class="btn btn-primary">Login</button>
+          <p class="login-note">Username Desa atau Verifikator. Password custom per akun.</p>
+        </form>
+      </div>
+    </section>
+
+    <section id="dashboard-screen" class="screen">
+      <header class="topbar">
+        <div class="brand">
+          <img class="logo-image" src="logo-pemda.png" alt="Logo Pemkab Paser" />
+          <div>
+            <strong>Kesra Satu Data</strong>
+          </div>
+        </div>
+        <div class="user-info">
+          <span id="user-role-label"></span>
+          <button id="logout-button" class="btn btn-secondary">Logout</button>
+        </div>
+      </header>
+
+      <div class="layout">
+        <aside class="sidebar">
+          <div class="sidebar-heading">Menu Utama</div>
+          <nav id="menu-list" class="nav-list"></nav>
+          <div class="sidebar-actions">
+            <button id="show-summary" class="btn btn-secondary">Persentase Semua Data</button>
+            <button id="show-help" class="btn btn-secondary">Panduan & Aturan</button>
+          </div>
+        </aside>
+
+        <main class="content">
+          <section id="summary-view" class="view active">
+            <h2>Ringkasan Data</h2>
+            <div class="summary-cards" id="summary-cards"></div>
+            <div class="summary-text">
+              <p>Gunakan menu samping untuk memilih jenis data. Admin Desa dapat menambah dan mengedit data untuk desa sendiri. Verifikator dapat menghapus data dan mencari nama perorangan.</p>
+            </div>
+          </section>
+
+          <section id="help-view" class="view">
+            <h2>Panduan Aplikasi</h2>
+            <ul>
+              <li>Admin Desa dapat mengelola data desa masing-masing.</li>
+              <li>Verifikator dapat menghapus data dan mencari berdasarkan nama.</li>
+              <li>Semua daftar dapat diekspor ke Excel, Word, dan PDF.</li>
+              <li>Gunakan tombol "Persentase Semua Data" untuk melihat distribusi data.</li>
+            </ul>
+          </section>
+
+          <section id="data-view" class="view">
+            <div class="data-header">
+              <div>
+                <h2 id="dataset-title"></h2>
+                <p id="dataset-description"></p>
+              </div>
+              <div class="action-row">
+                <button id="add-record-button" class="btn btn-primary">Tambah Data</button>
+                <label class="btn btn-secondary file-upload-label hidden">
+                  Upload Data
+                  <input id="upload-data-file" type="file" accept=".xlsx,.csv,.docx" />
+                </label>
+                <div class="export-group">
+                  <button id="export-csv" class="btn btn-secondary">Download Excel</button>
+                  <button id="export-word" class="btn btn-secondary">Download Word</button>
+                  <button id="export-pdf" class="btn btn-secondary">Download PDF</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="filter-row">
+              <div>
+                <label>Filter Desa</label>
+                <select id="filter-desa"></select>
+              </div>
+              <div>
+                <label>Cari Nama</label>
+                <input id="search-name" type="search" placeholder="Cari nama..." />
+              </div>
+              <div>
+                <button id="refresh-table" class="btn btn-secondary">Muat Ulang</button>
+              </div>
+            </div>
+
+            <div class="percent-card" id="percent-card"></div>
+            <div class="table-wrap"><table id="data-table"></table></div>
+          </section>
+        </main>
+      </div>
+    </section>
+  </div>
+
+  <div id="modal-overlay" class="modal-overlay hidden">
+    <div class="modal-card">
+      <header>
+        <h3 id="modal-title"></h3>
+        <button id="modal-close" class="btn btn-clear">×</button>
+      </header>
+      <form id="record-form"></form>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
